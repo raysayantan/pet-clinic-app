@@ -4,8 +4,6 @@ import my.springframework.petclinicapp.model.Owner;
 import my.springframework.petclinicapp.model.Vet;
 import my.springframework.petclinicapp.services.OwnerService;
 import my.springframework.petclinicapp.services.VetService;
-import my.springframework.petclinicapp.services.map.OwnerServiceMap;
-import my.springframework.petclinicapp.services.map.VetServiceMap;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +12,9 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
 
-    DataLoader(){
-        ownerService = new OwnerServiceMap();
-        vetService = new VetServiceMap();
+    DataLoader(OwnerService ownerService, VetService vetService){
+        this.ownerService = ownerService;
+        this.vetService = vetService;
     }
     @Override
     public void run(String... args) throws Exception {
@@ -29,8 +27,8 @@ public class DataLoader implements CommandLineRunner {
 
         Owner owner2 = new Owner();
         owner2.setId(2L);
-        owner1.setFirstName("BBB");
-        owner1.setLastName("bbb");
+        owner2.setFirstName("BBB");
+        owner2.setLastName("bbb");
 
         ownerService.save(owner2);
 
@@ -49,5 +47,6 @@ public class DataLoader implements CommandLineRunner {
         vet2.setLastName("ddd");
 
         vetService.save(vet2);
+        System.out.println("Loaded vet...");
     }
 }
